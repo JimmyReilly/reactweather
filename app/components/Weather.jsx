@@ -2,6 +2,7 @@ var React = require('react');
 
 var WeatherForm = require('WeatherForm');
 var WeatherMessage = require('WeatherMessage');
+var openWeatherMap = require('openWeatherMap');
 
 var Weather = React.createClass({
     // Called by react automatically
@@ -12,9 +13,16 @@ var Weather = React.createClass({
         }
     },
     handleSearch: function(location){
-        this.setState({
-            location: location,
-            temp: 23
+        // This gets lost in scope
+        var that = this;
+
+        openWeatherMap.getTemp(location).then(function(temp) {
+            that.setState({
+                location: location,
+                temp: temp
+            });
+        }, function(errorMessage) {
+            alert(errorMessage);
         });
     },
     render: function(){
