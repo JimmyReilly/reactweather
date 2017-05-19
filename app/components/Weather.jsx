@@ -15,6 +15,7 @@ var Weather = React.createClass({
         // This gets lost in scope
         var that = this;
 
+        // debugger; This sets a break point
         this.setState({isLoading: true});
 
         openWeatherMap.getTemp(location).then(function(temp) {
